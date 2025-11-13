@@ -1,7 +1,5 @@
 import './Produtos.css';
-import banner_1 from "../../assets/imgs/banner.png";
-import banner_2 from "../../assets/imgs/banner2.png";
-import banner_3 from "../../assets/imgs/banner3.png";
+
 import choc_belga from "../../assets/imgs/choc-belga.png";
 import choc_ninho from "../../assets/imgs/choc-ninho.png";
 import choc_cenoura from "../../assets/imgs/cenoura-choc.png";
@@ -12,6 +10,9 @@ import whatsapp from "../../assets/whatsapp.png"
 import { useEffect, useState } from 'react';
 import type { Bolo } from "../../types/Bolo";
 import { getBolos } from '../../services/bolosServices';
+import CardProduto from '../../components/CardProduto/CardProduto';
+import Carrosel from '../../components/Carrosel/Carrosel';
+
 
 
 // funções assíncronas
@@ -42,31 +43,7 @@ export default function Produtos() {
 
     return (
         <main>
-
-            <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
-                <div className="carousel-inner">
-                    <div className="carousel-item active">
-                        <img src={banner_1} className="d-block w-100" alt="..." />
-                    </div>
-                    <div className="carousel-item">
-                        <img src={banner_2} className="d-block w-100" alt="..." />
-                    </div>
-                    <div className="carousel-item">
-                        <img src={banner_3} className="d-block w-100" alt="..." />
-                    </div>
-                </div>
-                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                    data-bs-slide="prev">
-                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Previous</span>
-                </button>
-                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                    data-bs-slide="next">
-                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span className="visually-hidden">Next</span>
-                </button>
-            </div>
-
+            <Carrosel/>
 
             <section className="container_produtos">
                 <h1 className="acessivel">produtos de chocolate</h1>
@@ -78,14 +55,15 @@ export default function Produtos() {
                 <section className="cards">
 
                     {
-                       bolos.map((b: Bolo) => (
-                        <div className="card_produto">
-                        <img src={`http://localhost:3000/${b.imagens[0]}`} alt="Uma fatia de bolo de chocolate belga" />
-                        <h2> {b.nome} </h2>
-                        <p></p>
-                        <span> {b.preco} </span>
-                    </div>
-                       ))
+                        bolos.map((b: Bolo) => (
+                            <CardProduto
+                                nome={b.nome}
+                                descricao={b.descricao}
+                                preco={b.preco}
+                                imagem={b.imagens[0] ?? ""}
+                                peso={b.peso}
+                            />
+                        ))
                     }
 
 
